@@ -1,21 +1,12 @@
-import os
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 
 # ========== НАСТРОЙКИ ==========
-# 👇 ВСТАВЬ СВОЙ ТОКЕН (получи у @BotFather)
-BOT_TOKEN = os.environ.get("BOT_TOKEN")
+BOT_TOKEN = "8762811320:AAEMIQ0yGhPUj4MoCJA7nKDEjDTMDh8TMqE"
+# =================================
 
-if not BOT_TOKEN:
-    raise ValueError("Переменная окружения BOT_TOKEN не задана!")
-
-
-# Включаем логирование (чтобы видеть ошибки)
-logging.basicConfig(level=logging.INFO)
-
-# Создаём объекты
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
@@ -44,11 +35,18 @@ async def cmd_help(message: types.Message):
         "/check — отметить выполнение"
     )
 
+@dp.message(Command("add"))
+async def cmd_add(message: types.Message):
+    await message.answer(
+        "Добавил привычку"
+    )
+
 
 # ========== ЗАПУСК ==========
 async def main():
-    print("✅ Бот запущен и работает...")
-    await dp.start_polling(bot, polling_timeout=15)
+    logging.basicConfig(level=logging.INFO)
+    print("✅ Бот запущен...")
+    await dp.start_polling(bot)
 
 if __name__ == "__main__":
     asyncio.run(main())
