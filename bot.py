@@ -1,3 +1,4 @@
+import os
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher, types
@@ -5,15 +6,17 @@ from aiogram.filters import Command
 
 # ========== НАСТРОЙКИ ==========
 # 👇 ВСТАВЬ СВОЙ ТОКЕН (получи у @BotFather)
-BOT_TOKEN = "1234567890:ABCdefGHIjklMNOpqrsTUVwxyz"
-PROXY_URL = "http://206.123.156.230:8517"
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+
+if not BOT_TOKEN:
+    raise ValueError("Переменная окружения BOT_TOKEN не задана!")
 
 
 # Включаем логирование (чтобы видеть ошибки)
 logging.basicConfig(level=logging.INFO)
 
 # Создаём объекты
-bot = Bot(token=BOT_TOKEN, proxy=PROXY_URL)
+bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
 
